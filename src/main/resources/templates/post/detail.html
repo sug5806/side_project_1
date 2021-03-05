@@ -10,19 +10,31 @@
     <div th:replace="common/body_header :: bodyHeader"></div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-10">
             <h2 th:text="${post.getTitle()}"></h2>
         </div>
-        <div class="col">
-            <a class="btn btn-outline-info" th:href="@{/post/{id}/edit(id=${post.getId()})}">
-                수정하기
-            </a>
 
-            <form id="delete-form" th:action="@{/post/{id}(id=${post.getId()})}" th:method="delete">
-                <button class="btn btn-outline-danger" value="삭제하기">삭제하기</button>
-            </form>
+        <div aria-label="Button group with nested dropdown" class="btn-group" role="group">
+            <div class="btn-group" role="group">
+                <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary dropdown-toggle"
+                        data-toggle="dropdown" id="btnGroupDrop1" type="button">
+                    편집하기
+                </button>
+
+                <div aria-labelledby="btnGroupDrop1" class="dropdown-menu">
+                    <form class="dropdown-item" id="update-form"
+                          th:action="@{/post/{id}/edit(id=${post.getId()})}"
+                          th:method="get">
+                        <button class="dropdown-item">수정하기</button>
+                    </form>
+                    <form class="dropdown-item" id="delete-form"
+                          th:action="@{/post/{id}(id=${post.getId()})}"
+                          th:method="delete">
+                        <button class="dropdown-item">삭제하기</button>
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
 
     <hr>
