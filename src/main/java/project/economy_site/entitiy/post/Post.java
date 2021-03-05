@@ -1,11 +1,12 @@
-package project.economy_site.entitiy;
+package project.economy_site.entitiy.post;
 
 import lombok.*;
+import project.economy_site.entitiy.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Builder
@@ -17,11 +18,10 @@ public class Post extends BaseEntity {
     @GeneratedValue
     private Long postId;
 
-    @NotEmpty
-    @NonNull
+    @NotBlank
     private String title;
-    @NotEmpty
-    @NonNull
+
+    @NotBlank
     private String contents;
 
     @Builder.Default

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.economy_site.dto.post.PostRequestDTO;
 import project.economy_site.dto.post.PostResponseDTO;
-import project.economy_site.entitiy.Post;
+import project.economy_site.entitiy.post.Post;
 import project.economy_site.repository.PostRepository;
 
 import java.time.format.DateTimeFormatter;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import project.economy_site.dto.post.PostRequestDTO;
 import project.economy_site.dto.post.PostResponseDTO;
-import project.economy_site.entitiy.Post;
+import project.economy_site.entitiy.post.Post;
 import project.economy_site.service.PostService;
 
 import javax.validation.Valid;

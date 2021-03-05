@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.economy_site.dto.post.PostRequestDTO;
-import project.economy_site.entitiy.Post;
+import project.economy_site.entitiy.post.Post;
 import project.economy_site.service.PostService;
 
 import static org.assertj.core.api.Assertions.assertThat;
