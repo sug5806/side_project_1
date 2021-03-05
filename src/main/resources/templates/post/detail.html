@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: header">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<div class="container" th:object="${post}">
+    <div th:replace="common/body_header :: bodyHeader"></div>
+
+    <div class="row">
+        <div class="col">
+            <h2 th:text="${post.getTitle()}"></h2>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-info" th:href="@{/post/{id}/edit(id=${post.getId()})}">
+                수정하기
+            </a>
+
+            <form id="delete-form" th:action="@{/post/{id}(id=${post.getId()})}" th:method="delete">
+                <button class="btn btn-outline-danger" value="삭제하기">삭제하기</button>
+            </form>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <p th:utext="${post.getContents()}"></p>
+    </div>
+</div>
 
 </body>
 </html>

@@ -24,8 +24,15 @@ public class Post extends BaseEntity {
     @NonNull
     private String contents;
 
+    @Builder.Default
+    private Long viewCount = 0L;
+
     public void changeTitle(String title) {
         this.title = title;
+    }
+
+    public void addViewCount() {
+        this.viewCount = this.getViewCount() + 1;
     }
 
     public void changeContents(String contents) {

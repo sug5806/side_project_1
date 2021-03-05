@@ -11,4 +11,5 @@ public class PostResponseDTO {
     private String title;
     private String contents;
     private String createdAt;
+    private Long viewCount;
 }

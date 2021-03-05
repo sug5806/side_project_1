@@ -1,6 +1,7 @@
 package project.economy_site.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.economy_site.dto.post.PostRequestDTO;
@@ -8,6 +9,7 @@ import project.economy_site.dto.post.PostResponseDTO;
 import project.economy_site.entitiy.Post;
 import project.economy_site.repository.PostRepository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,7 +32,7 @@ public class PostService {
     }
 
     public List<PostResponseDTO> getPosts() {
-        List<Post> allPost = postRepository.findAll();
+        List<Post> allPost = postRepository.findAll(Sort.by(Sort.Direction.DESC, "postId"));
 
         Stream<Post> postStream = allPost.stream();
 
@@ -38,23 +40,28 @@ public class PostService {
                 .id(post.getPostId())
                 .title(post.getTitle())
                 .contents(post.getContents())
+                .createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .viewCount(post.getViewCount())
                 .build()
         );
 
         return dtoStream.collect(Collectors.toList());
     }
 
+    @Transactional
     public PostResponseDTO getPost(Long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
         Post post = optionalPost.orElseThrow();
+
+        post.addViewCount();
 
         return PostResponseDTO.builder()
                 .id(post.getPostId())
                 .title(post.getTitle())
                 .contents(post.getContents())
                 .createdAt(post.getCreatedAt().toString())
+                .viewCount(post.getViewCount())
                 .build();
-
     }
 
     @Transactional
@@ -67,5 +74,12 @@ public class PostService {
         post.changeContents(postRequestDTO.getContents());
 
         return post.getPostId();
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Optional<Post> findPost = postRepository.findById(id);
+        Post post = findPost.orElseThrow();
+        postRepository.delete(post);
     }
 }

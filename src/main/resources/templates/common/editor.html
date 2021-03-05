@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="header" th:fragment="editor">
+    <div class="form-group">
+        <label for="title">제목:</label>
+        <input autocomplete="off" class="form-control" id="title" placeholder="제목을 입력하세요" th:field="*{title}"
+               type="text"/>
+    </div>
+
+    <div class="form-group">
+        <label for="content"></label>
+        <textarea autocomplete="off" class="form-control" id="content" placeholder="Content" rows="4"
+                  th:field="*{contents}" type="text"></textarea>
+    </div>
+</div>
+</html>
