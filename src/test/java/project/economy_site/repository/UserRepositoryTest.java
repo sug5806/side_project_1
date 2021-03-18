@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import project.economy_site.entitiy.user.User;
 
@@ -27,13 +26,13 @@ class UserRepositoryTest {
         User user1 = User.builder()
                 .email("sug5806@gmail.com")
                 .password("$2a$10$etaT.Zry7uVGvD8N0jmxi.2D25vxt3qB8sv9JgD5PSGSDWimxnzN.")
-                .role(new SimpleGrantedAuthority("ROLE_USER"))
+                .role("ROLE_USER")
                 .build();
 
         User user2 = User.builder()
                 .email("sug5806@naver.com")
                 .password("$2a$10$SiUQGfMAkiBEUOJJ5.pvveaC2uiO9o9/WNF6SrzU9YR.GvnW3b49S")
-                .role(new SimpleGrantedAuthority("ROLE_USER"))
+                .role("ROLE_USER")
                 .build();
 
         userRepository.save(user1);
@@ -48,7 +47,6 @@ class UserRepositoryTest {
 
         // when
         Optional<User> optionalUser = userRepository.findByEmail(email);
-
         User user = optionalUser.orElseThrow(() -> new NoSuchElementException("not found user"));
 
         // then

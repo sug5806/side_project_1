@@ -1,6 +1,7 @@
 package project.economy_site.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public RedirectView postCreate(@Valid PostRequestDTO postRequestDTO) {
         Post createdPost = postService.createPost(postRequestDTO);
         String url = String.format("/post/%d", createdPost.getPostId());

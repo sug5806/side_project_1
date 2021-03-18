@@ -7,20 +7,19 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserAuthenticationProvider implements AuthenticationProvider {
-    private final CustomUserDetailsService customUserDetailsService;
+public class CustomUserAuthenticationProvider implements AuthenticationProvider {
+    private final CustomUserDetailsService detailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
-        String password = (String) authentication.getCredentials();
+        String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
+        UserDetails userDetails = detailsService.loadUserByUsername(email);
 
         if (!checkPassword(password, userDetails.getPassword()) || !userDetails.isEnabled()) {
             throw new BadCredentialsException(email);
@@ -31,10 +30,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
     private boolean checkPassword(String loginPassword, String password) {
-        return BCrypt.checkpw(loginPassword, password);
+        return loginPassword.equals(password);
     }
 }

@@ -1,4 +1,4 @@
-package project.economy_site.entitiy;
+package project.economy_site.entitiy.base;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;

@@ -36,6 +36,8 @@ public class User extends DateTimeEntity {
 
     private String salt;
 
+    private String role;
+
     @OneToMany(fetch = LAZY, mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
 

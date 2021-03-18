@@ -20,8 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final UserAuthenticationProvider userAuthenticationProvider;
+//    private final CustomUserAuthenticationProvider customUserAuthenticationProvider;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -51,8 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").hasAnyRole("ADMIN", "USER");// 내부적으로 접두어 "ROLE_"가 붙는다.
 
         httpSecurity.formLogin()
-                .loginPage("/login") // default
                 .loginProcessingUrl("/authenticate")
+                .loginPage("/login")
                 .failureUrl("/login?error") // default
                 .defaultSuccessUrl("/", false)
                 .usernameParameter("email")
