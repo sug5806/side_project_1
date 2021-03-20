@@ -9,9 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import project.economy_site.entitiy.user.User;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
@@ -46,12 +43,12 @@ class UserRepositoryTest {
         String email = "sug5806@naver.com";
 
         // when
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        User user = optionalUser.orElseThrow(() -> new NoSuchElementException("not found user"));
+        User findUser = userRepository.findByEmail(email);
+//        User user = optionalUser.orElseThrow(() -> new NoSuchElementException("not found user"));
 
         // then
-        assertThat(user).isNotNull();
-        assertThat(user.getEmail()).isEqualTo(email);
+        assertThat(findUser).isNotNull();
+        assertThat(findUser.getEmail()).isEqualTo(email);
     }
 
 }

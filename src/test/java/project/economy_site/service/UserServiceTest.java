@@ -9,7 +9,6 @@ import project.economy_site.dto.user.UserDTO;
 import project.economy_site.entitiy.user.User;
 import project.economy_site.repository.UserRepository;
 
-import static java.util.Optional.ofNullable;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
@@ -27,7 +26,7 @@ class UserServiceTest {
         // given
         UserDTO loginUser = loginUser();
         User user = createUser();
-        given(userRepository.findByEmail(loginUser.getEmail())).willReturn(ofNullable(user));
+        given(userRepository.findByEmail(loginUser.getEmail())).willReturn(user);
 
         // when
         User check = userService.checkPassword(loginUser().getEmail(), loginUser.getPassword());

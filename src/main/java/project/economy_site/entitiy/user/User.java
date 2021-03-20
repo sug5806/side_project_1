@@ -3,18 +3,8 @@ package project.economy_site.entitiy.user;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import project.economy_site.entitiy.base.DateTimeEntity;
-import project.economy_site.entitiy.post.Post;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -27,31 +17,34 @@ public class User extends DateTimeEntity {
     @GeneratedValue
     private Long userId;
 
-    @NotBlank
-    @Email
     private String email;
 
-    @NotBlank
+    @Column(length = 100)
+    private String name;
+
     private String password;
 
-    private String salt;
+    @Column(length = 100)
+    @Enumerated(value = EnumType.STRING)
+    private SocialType socialType;
 
     private String role;
 
-    @OneToMany(fetch = LAZY, mappedBy = "user")
-    private List<Post> postList = new ArrayList<>();
+    private String principal;
+
+//    @OneToMany(fetch = LAZY, mappedBy = "user")
+//    private List<Post> postList = new ArrayList<>();
 
     public void clearPassword() {
         this.password = null;
     }
 
     public void createAndSetPassword(String rawPassword) {
-        this.salt = BCrypt.gensalt();
-        this.password = BCrypt.hashpw(rawPassword, this.salt);
+        this.password = BCrypt.hashpw(rawPassword, BCrypt.gensalt());
     }
 
-    public void mappingPost(Post post) {
-        this.postList.add(post);
-        post.mappingUser(this);
-    }
+//    public void mappingPost(Post post) {
+//        this.postList.add(post);
+//        post.mappingUser(this);
+//    }
 }

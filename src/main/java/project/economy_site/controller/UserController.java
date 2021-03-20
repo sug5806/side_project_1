@@ -35,6 +35,6 @@ public class UserController {
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginForm", UserDTO.builder().build());
-        return "login/form";
+        return "/login/login";
     }
 }

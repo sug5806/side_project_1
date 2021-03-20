@@ -8,9 +8,6 @@ import project.economy_site.dto.user.SignUpDTO;
 import project.economy_site.entitiy.user.User;
 import project.economy_site.repository.UserRepository;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -18,9 +15,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User checkPassword(String email, String password) {
-        Optional<User> byEmail = userRepository.findByEmail(email);
+        User findUser = userRepository.findByEmail(email);
 
-        User findUser = byEmail.orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다."));
+//        User findUser = byEmail.orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다."));
 
         boolean checkup = BCrypt.checkpw(password, findUser.getPassword());
         if (!checkup) {
