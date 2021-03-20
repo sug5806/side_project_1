@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: header"></head>
+
+
+<body>
+<!--<h2>Login</h2>-->
+<!--<p>페이지를 보려면 로그인 해야 합니다.</p>-->
+<!--<ul>-->
+<!--    <li>-->
+<!--        <a class="btn_social" data-social="google" href="javascript:;">구글 로그인</a><br/>-->
+<!--    </li>-->
+<!--</ul>-->
+<!--<script>-->
+<!--    let socials = document.getElementsByClassName("btn_social");-->
+<!--    for (let social of socials) {-->
+<!--        social.addEventListener('click', function () {-->
+<!--            let socialType = this.getAttribute('data-social');-->
+<!--            location.href = "/oauth2/authorization/" + socialType;-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
+
+<!--<body>-->
+
+<div class="container center-contents">
+    <div class="row">
+        <form class="form-signin" method="post" th:action="@{/authenticate}" th:object="${loginForm}">
+            <h1 class="h3 mb-3 font-weight-normal"> 로그인 </h1>
+            <label class="sr-only" for="email">로그인 이메일</label>
+            <input autofocus
+                   class="form-control"
+                   id="email"
+                   name="username"
+                   placeholder="이메일을 입력해 주세요."
+                   required th:field="*{email}">
+            <label class="sr-only" for="password">비밀번호</label>
+            <input class="form-control"
+                   id="password"
+                   name="password"
+                   placeholder="비밀번호를 입력해 주세요"
+                   required th:field="*{password}"
+                   type="password">
+            <button class="btn btn-lg btn-primary btn-block" type="submit"> 로그인</button>
+            <ul>
+                <li>
+                    <a class="btn_social" data-social="google" href="javascript:;">구글 로그인</a><br/>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>
+
+<script>
+    let socials = document.getElementsByClassName("btn_social");
+    for (let social of socials) {
+        social.addEventListener('click', function () {
+            let socialType = this.getAttribute('data-social');
+            location.href = "/oauth2/authorization/" + socialType;
+        })
+    }
+</script>
+</body>
+</html>
